@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add New Staff</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#btnadd").click(function(){
+				
+				var name=document.getElementById("txtname").value;
+				var gender=document.getElementById("rdbgender").value;
+				var designation=document.getElementById("ddldesignation").value;
+			     $.ajax({
+			      type: "POST",
+			      url: 'dal_addstaff.php',
+			      data: ({
+			      	param_name:name,
+			      	param_gender:gender,
+			      	param_designation:designation
+			      	}),
+			      success: function(data) {
+			       document.getElementById("div1").innerHTML=data;
+			      } 
+			    }); 
+			    });   
+		});
+	</script>
+</head>
+<body>
+	<center><h1>Add New Staff</h1></center>
+	<form method="POST">
+		<table border="1" align="center">
+			 <tr>
+				<td>Name</td>
+				<td><input type="text" name="txtname" id="txtname"/>
+			</tr>
+			<tr>
+				<td>Gender</td>
+				<td>
+					<input type="radio" name="rdbgender" id="rdbgender" value="M" checked />Male
+					<input type="radio" name="rdbgender" id="rdbgender" value="F" />Female
+				</td>
+			</tr>
+			<tr>
+				<td>Designation</td>
+				<td>
+					<select name="ddldesignation" id="ddldesignation">
+						<option>Teaching</option>
+						<option>Non-Teaching</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" name="btnadd" id="btnadd" value="Add" /></td>
+				<td><input type="reset" name="btncancel" id="btncancel" value="Cancel" /></td>
+			</tr>
+		</table>
+	</form>
+	<br>
+	<center><font color="red"><div id="div1">
+	</div></font></center>
+</body>
+</html>

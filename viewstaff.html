@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Staff List</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	
+</head>
+<body>
+
+	<form method="GET">
+		<center><h1>Staff List</h1></center>
+		<table border="1" id="table_staff" align="center">
+			<thead>
+				<tr>
+					<th>Staffcode</th>
+					<th>Name</th>
+					<th>Gender</th>
+					<th>Designation</th>
+					
+				</tr>
+			</thead>
+		</table>
+		
+	
+	</form>
+		<script type="text/javascript">
+			$(document).ready(function(){
+
+			     $.ajax({
+			     
+			      url: 'dal_viewstaff.php',
+			      datatype: 'json',
+			        success: function(data)          //on recieve of reply
+      				{
+      					result=JSON.parse(data);
+      					var table_staff=document.getElementById("table_staff");
+      					for(var i=0;i<result.length; i++)
+      					{
+      						var staffcode=result[i].staffcode;
+      						var name=result[i].name;
+      						var gender=result[i].gender;
+      						var designation=result[i].designation;
+      						
+
+      						staffcode='<td>'+staffcode+'</td>';
+      						name='<td>'+name+'</td>';
+      						gender='<td>'+gender+'</td>';
+      						designation='<td>'+designation+'</td>';
+      						
+
+      						var row='<tr>'+staffcode+name+gender+designation+'</tr>';
+      						$('#table_users tr:last').after(row);
+      					}
+
+		 			}	
+		 			
+			     
+			});
+			 });
+	</script>
+</body>
+</html>
